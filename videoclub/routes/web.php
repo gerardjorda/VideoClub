@@ -11,9 +11,28 @@
 |
 */
 
+//RESOURCE DE CATEGORYCONTROLLER
 
+Route::get('/category','CategoryController@index')->middleware('auth');;
+
+Route::get('/category/create','CategoryController@create')->middleware('auth');;
+Route::post('/category/create','CategoryController@pcreate')->middleware('auth');;
+
+Route::post('/category','CategoryController@store')->middleware('auth');;
+
+Route::get('/category/{id}','CategoryController@show')->middleware('auth');;
+
+Route::get('/category/{id}/edit','CategoryController@edit')->middleware('auth');;
+Route::post('/category/{id}/edit','CategoryController@pedit')->middleware('auth');;
+
+Route::put('/category/{id}','CategoryController@update')->middleware('auth');;
+
+Route::delete('/category/{id}','CategoryController@destroy')->middleware('auth');;
 
 //AUTENTIFICACIÓ DE USUARIS
+
+Route::get('/catalog/buscar', 'CatalogController@search')->middleware('auth');
+
 Route::put('/catalog/lloger/{id}', 'CatalogController@putRent')->middleware('auth');
 
 Route::put('/catalog/return/{id}', 'CatalogController@putReturn')->middleware('auth');
@@ -33,11 +52,11 @@ Route::get('inici/{nom}', function($nom)
 
 
 
+
 Route::get('catalog/', 'CatalogController@getIndex')->middleware('auth');
 
-
 Route::get('catalog/show/{id}', 'CatalogController@getShow')->middleware('auth');
-
+Route::post('catalog/show/{id}', 'CatalogController@postCreateR')->middleware('auth');
 
 Route::get('catalog/create/', 'CatalogController@getCreate')->middleware('auth');
 

@@ -37,6 +37,15 @@
                <textarea name="synopsis" id="synopsis" class="form-control" rows="3"></textarea>
             </div>
 
+            <div class="form-group">
+                <label for="director">Categoria</label>
+                <select id="adult" name="category" id="category" class="form-control"> 
+                  @foreach( $arrayCategories as $key => $category )
+                    <option value="{{$category->id}}">{{$category->title}}</option>
+                  @endforeach
+                </select>
+            </div>
+
             <div class="form-group text-center">
                <button type="submit" class="btn btn-primary" style="padding:8px 100px;margin-top:25px;">
                    Añadir película

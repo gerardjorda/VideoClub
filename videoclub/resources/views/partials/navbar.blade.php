@@ -15,6 +15,12 @@
                             Catálogo
                         </a>
                     </li>
+                    <li class="nav-item {{ Request::is('categories') && ! Request::is('category/categories')? 'active' : ''}}">
+                        <a class="nav-link" href="{{url('/category')}}">
+                            <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+                            Categories
+                        </a>
+                    </li>
                     <li class="nav-item {{  Request::is('catalog/create') ? 'active' : ''}}">
                         <a class="nav-link" href="{{url('/catalog/create')}}">
                             <span>&#10010</span> Nueva película
@@ -32,6 +38,11 @@
                         </form>
                     </li>
                 </ul>
+                <form class="form-inline my-2 my-lg-0" action="{{ url('/catalog/buscar') }}" method="GET" >
+                {{ csrf_field() }}
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" id="search" name="search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
             </div>
         @endif
     </div>

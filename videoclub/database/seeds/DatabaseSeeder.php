@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Movie;
 use App\User;
+use App\Category;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,16 +18,57 @@ class DatabaseSeeder extends Seeder
 		$this->command->info('Tabla catálogo inicializada con datos!');
 		
 		self::seedUsers();
-    	$this->command->info('Tabla usuarios inicializada con datos!');
+		$this->command->info('Tabla usuarios inicializada con datos!');
+		
+		self::seedCategories();
+    	$this->command->info('Tabla categories inicializada con datos!');
 	}
+
+	private function seedCategories()
+	{
+		DB::table('categories')->delete();
+
+		foreach( $this->arrayCategories as $category ) {
+			$p = new Category;
+			$p->title = $category['title'];
+			$p->description = $category['description'];
+			$p->adult = $category['adult'];
+			$p->save();
+		}
+	}
+
+	private $arrayCategories = array(
+		array(
+			'title' => 'infantil',
+			'description' => 'Pelicula destinada a public infantil.', 
+			'adult' => false, 
+		),
+		array(
+			'title' => 'terror',
+			'description' => 'Pelicula de por.', 
+			'adult' => true, 
+		),
+		array(
+			'title' => 'drama',
+			'description' => 'Pelicula de plorar.', 
+			'adult' => false, 
+		),
+		array(
+			'title' => 'accio',
+			'description' => 'Pelicula probablement amb dispars.', 
+			'adult' => false, 
+		));
+
+
+
 	
 	private function seedUsers()
 	{
 
 		DB::table('users')->delete();
 		$p = new User;
-		$p->name = "Arnaldo";
-		$p->email = "arnaldo@rcarteras.com";
+		$p->name = "Gerard";
+		$p->email = "gerardjorda23@gmail.com";
 		$p->password = bcrypt("1234");
 		$p->save();
 	}
@@ -77,7 +119,7 @@ class DatabaseSeeder extends Seeder
 			'year' => '1994', 
 			'director' => 'Quentin Tarantino', 
 			'poster' => 'https://ia.media-imdb.com/images/M/MV5BMjE0ODk2NjczOV5BMl5BanBnXkFtZTYwNDQ0NDg4._V1_SY317_CR4,0,214,317_AL_.jpg', 
-			'rented' => true, 
+			'rented' => true, 	
 			'synopsis' => 'Jules y Vincent, dos asesinos a sueldo con muy pocas luces, trabajan para Marsellus Wallace. Vincent le confiesa a Jules que Marsellus le ha pedido que cuide de Mia, su mujer. Jules le recomienda prudencia porque es muy peligroso sobrepasarse con la novia del jefe. Cuando llega la hora de trabajar, ambos deben ponerse manos a la obra. Su misión: recuperar un misterioso maletín. '
 		),
 		array(

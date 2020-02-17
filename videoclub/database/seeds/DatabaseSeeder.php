@@ -84,7 +84,7 @@ class DatabaseSeeder extends Seeder
             $p->director = $pelicula['director'];
             $p->poster = $pelicula['poster'];
             $p->rented = $pelicula['rented'];
-            $p->synopsis = $pelicula['synopsis'];
+			$p->synopsis = $pelicula['synopsis'];
             $p->save();
         }
     }

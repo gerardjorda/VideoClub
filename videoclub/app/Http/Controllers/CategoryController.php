@@ -25,13 +25,13 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request)    //CARREGAR LA PAGINA DE CREAR CATEGORIA.
     {
         return view('categories.create');
        
     }
 
-    public function pcreate(Request $request)
+    public function pcreate(Request $request)   //CREACIO DE LA CATEGORIA AL RECOLLIR LES DADES DE LA PAGINA CATEGORIA.
     {
         $category=new Category();
 		$category->title= $request->input('title');
@@ -86,13 +86,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id)   //CARREGAR LA PAGINA DE EDICIO DE PELICUAL
     {
         $category=Category::findOrFail($id);    
         return view('categories.edit', array('category'=> $category));
     }
 
-    public function pedit(Request $request, $id)
+    public function pedit(Request $request, $id)    //RECOLLIDA DE LES DADES I LA EDICIO DE LA PELICULA.
     {
         $category=Category::findOrFail($id);
 		$category->title= $request->input('title');
@@ -130,7 +130,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+     //ELIMINACIÓ DE LA CATEGORI
+    public function destroy($id)    
     {
         $category = new Category;
 		$return = $category-> findOrFail($id);

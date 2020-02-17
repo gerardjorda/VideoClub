@@ -12,6 +12,8 @@ use App\http\Controllers\DB;
 
 class CatalogController extends Controller
 {
+
+	//ENCARREG DE LA PELICULA
 	public function putRent($id)
 	{
 
@@ -30,6 +32,8 @@ class CatalogController extends Controller
 		return view('catalog.show', array('pelicula'=>$movie), array('arrayReviews'=>$review));
 	}
 
+	//RETORNACIÓ DE LA PELICULA
+
 	public function putReturn($id)
 	{
 		$review=Review::all();
@@ -47,6 +51,8 @@ class CatalogController extends Controller
 		return view('catalog.show', array('pelicula'=>$movie), array('arrayReviews'=>$review));
 	}
 
+	//ELIMINEM LA PELICULA
+
 	public function deleteMovie($id)
 	{
 		$pelicula = new Movie;
@@ -57,6 +63,8 @@ class CatalogController extends Controller
 
 		return redirect('/catalog');
 	}	
+
+	//ENSENYAR LES DADES DE LES PELICULES
 
     public function getShow($id)
     {	
@@ -69,31 +77,35 @@ class CatalogController extends Controller
         return view('catalog.show', array('pelicula'=>$pelicula), array('arrayReviews'=>$review), array('category'=>$category));	
 	}
 	
-    public function getIndex()
-    {
-		$pelicules=Movie::all();
+	//ENSENYAR EL CATALOG
+
+    public function getIndex()				
+    {	
+		$pelicules=Movie::all();			
         return view('catalog.index',array('arrayPeliculas'=> $pelicules));
 	}
 
+	//BUSCADOR
+
 	public function search(Request $request)
 	{
-		$nom=$request->get('search');
-        $peliculas = Movie::where('title','like','%'.$nom.'%')->paginate(20);
-        return view('catalog.index', array('arrayPeliculas'=> $peliculas));
+		$nom=$request->get('search');			//AGAFO EL TEXT DEL SEARCH BAR
+        $peliculas = Movie::where('title','like','%'.$nom.'%')->paginate(20);	//BUSCO DINS DE LA TAULA DE PELICULES LES PELICULES QUE EL SEU TITUL COINSIDEIXI AMB EL NOM I LES GUARDO EN UN ARRAY.
+        return view('catalog.index', array('arrayPeliculas'=> $peliculas));	//RETURNO EL CATALOG DE LES PELICULES DINS UN ARRAY.
 	}
 
 	
 	//CREAR//
 
-    public function getCreate()
+    public function getCreate() //CARREGAR LA PAGINA DE CREAR
     {	
 		$category=Category::all();
 
         return view('catalog.create', array('arrayCategories'=> $category));
 	}
 
-	public function postCreate(Request $request)
-	{
+	public function postCreate(Request $request)	//GUARDAR LES DADES DE CREAR
+	{	
 		$pelicula=new Movie();
 
 		$category=Category::all();
@@ -105,6 +117,7 @@ class CatalogController extends Controller
 		$pelicula->poster= $request->input('poster');
 		$pelicula->synopsis= $request->input('synopsis');
 		$pelicula->category_id= $request->input('category');
+		$pelicula->trailer= $request->input('trailer');
 
 		$pelicula->save();
 		Notify::success('La pelicula creada correctament'); 
@@ -112,7 +125,7 @@ class CatalogController extends Controller
 	}
 	
 	//EDITAR//
-	public function getEdit($id) 
+	public function getEdit($id) 		//CARREGAR LA PAGINA DE EDITAR
 	{
 		$category=Category::all();
 
@@ -121,7 +134,7 @@ class CatalogController extends Controller
 		return view('catalog.edit', array('pelicula'=> $pelicula), array('arrayCategories'=> $category));
 	}
 
-	public function putEdit(Request $request, $id)
+	public function putEdit(Request $request, $id)	
 	{
 		$pelicula=Movie::findOrFail($id);
 		$pelicula->title= $request->input('title');
@@ -130,6 +143,7 @@ class CatalogController extends Controller
 		$pelicula->poster= $request->input('poster');
 		$pelicula->synopsis= $request->input('synopsis');
 		$pelicula->category_id= $request->input('category');
+		$pelicula->trailer= $request->input('trailer');
 
 		$pelicula->save();
 		Notify::success('La pelicula editada correctament.'); 

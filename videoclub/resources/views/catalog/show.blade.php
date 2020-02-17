@@ -25,39 +25,24 @@
 
 <p>{{$pelicula->synopsis}}</p>
 
+
+
 @if($pelicula->rented)
     
 <p><b>Estat:</b> No disponible</p>
 
-<button type="button" class="btn btn-success"><img src="../../../public/img icons/heart.png" style="width:20px; margin-right:5px">Afegir a Preferits</button>
-
-
     <form action="{{action('CatalogController@putReturn', $pelicula->id)}}" method="POST" style="display:inline">
         {{ method_field('PUT') }}
         {{ csrf_field() }}
-        <button type="submit" class="btn btn-danger" style="display:inline">
+        <button type="submit" class="btn btn-danger" style="display:inline"><img src="../../../public/img icons/down-arrow.png" style="width:20px; margin-right:5px">
+
             Devolver película
         </button>
     </form>
-
-    <a href="{{ url('/catalog/edit/' . $pelicula->id ) }}" type="button" class="btn btn-warning" style="display:inline">Editar Pelicula</a>
-
-    <form action="{{action('CatalogController@deleteMovie', $pelicula->id)}}" method="POST" style="display:inline">
-        {{ method_field('PUT') }}
-        {{ csrf_field() }}
-        
-        <button type="submit" class="btn btn-danger" style="display:inline">Eliminar</button>
-    </form>
-        
-        <a href="{{ url('/catalog/') }}" type="button" class="btn btn-light" style="display:inline">< Tornar a la llista</a>
-        
-    
     
     
 @else
     <p><b>Estat:</b> Disponible</p>
-    
-    <button type="button" class="btn btn-success"><img src="../../../public/img icons/heart.png" style="width:20px; margin-right:5px">Afegir a Preferits</button>
 
     <form action="{{action('CatalogController@putRent', $pelicula->id)}}" method="POST" style="display:inline">
         {{ method_field('PUT') }}
@@ -66,21 +51,53 @@
              Alquilar
         </button>
     </form>
-
-        <a href="{{ url('/catalog/edit/' . $pelicula->id ) }}" type="button" class="btn btn-warning"><img src="../../../public/img icons/edit.png" style="width:20px; margin-right:5px">Editar Pelicula</a>
-        
-
-    <form action="{{action('CatalogController@deleteMovie', $pelicula->id)}}" method="POST" style="display:inline">
-        {{ method_field('PUT') }}
-        {{ csrf_field() }}
-        <button type="submit" class="btn btn-danger" style="display:inline"><img src="../../../public/img icons/close.png" style="width:20px; margin-right:5px">Eliminar</button>
-
-    </form>
-
-        <a href="{{ url('/catalog/') }}" type="button" class="btn btn-light" style="display:inline"><img src="../../../public/img icons/back.png" style="width:20px; margin-right:5px"> Tornar a la llista</a>
-    
     
 @endif
+
+
+    <!--MODAL-->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Trailer
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Trailer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="embed-responsive embed-responsive-4by3">
+            <iframe class="embed-responsive-item"src="{{$pelicula->trailer}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--FI MODAL-->
+    
+
+<button type="button" class="btn btn-success"><img src="../../../public/img icons/heart.png" style="width:20px; margin-right:5px">Afegir a Preferits</button>
+
+
+<a href="{{ url('/catalog/edit/' . $pelicula->id ) }}" type="button" class="btn btn-warning"><img src="../../../public/img icons/edit.png" style="width:20px; margin-right:5px">Editar Pelicula</a>
+        
+
+        <form action="{{action('CatalogController@deleteMovie', $pelicula->id)}}" method="POST" style="display:inline">
+            {{ method_field('PUT') }}
+            {{ csrf_field() }}
+            <button type="submit" class="btn btn-danger" style="display:inline"><img src="../../../public/img icons/close.png" style="width:20px; margin-right:5px">Eliminar</button>
+    
+        </form>
+    
+            <a href="{{ url('/catalog/') }}" type="button" class="btn btn-light" style="display:inline"><img src="../../../public/img icons/back.png" style="width:20px; margin-right:5px"> Tornar a la llista</a>
+        
+
 </div>
 </div>
 
